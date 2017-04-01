@@ -1,0 +1,27 @@
+#!/bin/sh
+
+res=$(rofi -p "> " -dmenu < ~/scripts/powermenu)
+
+if [ $res = "logout" ]; then
+	i3-msg exit
+fi
+if [ $res = "restart" ]; then
+	systemctl reboot
+fi
+if [ $res = "shutdown" ]; then
+	systemctl poweroff -i
+fi
+if [ $res = "suspend" ]; then
+	(cd ~/scripts/ && ./lock && systemctl suspend)
+fi
+if [ $res = "lock" ]; then
+	(cd ~/scripts && killall -SIGUSR1 dunst && ./lock && killall -SIGUSR2 dunst)
+fi
+if [ $res = "toggle_bar" ]; then
+	if [ -z "$(ps ua | grep 'lemonbar')" ]; then
+		killall bar
+	else
+		/home/mbell/.config/lemon/bar
+	fi
+fi
+exit 0

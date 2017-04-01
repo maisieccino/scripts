@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+scr='/tmp/screenshot.png'
+icon="lock-icon.png"
+# To change the font used add `-font $font`
+# After pointsize in the 'add fortune text section'
+# font="$HOME/.local/share/fonts/Aller_Lt.ttf"
+fortune=$(fortune ~/git/cs-fortunes/cs-fortunes)
+gradientColor='#2c3e50'
+gradientDimensions='1920x1080'
+font="Product-Sans"
+scrot "$scr"
+convert "$scr" -scale 10% -scale 1000%\
+	-size "$gradientDimensions" -gravity south-west \
+	gradient:none-"$gradientColor" -composite -matte \
+	"$icon" -gravity center -composite -matte \
+	-gravity center -pointsize 20 \
+	-fill "#EAE4D1" -font $font -annotate +0+400 "$fortune" "$scr"
+i3lock -ui "$scr"
