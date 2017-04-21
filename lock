@@ -3,12 +3,13 @@ source ~/.bashrc
 [ -z $WIDTH ] && WIDTH=1366
 [ -z $HEIGHT ] && HEIGHT=768
 scr='/tmp/screenshot.png'
-icon="lock-icon.png"
+icon="lock-icon-white.png"
 dir="/home/mbell/scripts/"
 # To change the font used add `-font $font`
 # After pointsize in the 'add fortune text section'
 # font="$HOME/.local/share/fonts/Aller_Lt.ttf"
-fortune=$(fortune ~/git/cs-fortunes/cs-fortunes)
+[ -z "$MESSAGE" ] && MESSAGE=$(fortune ~/git/cs-fortunes/cs-fortunes)
+MESSAGE=$(echo "$MESSAGE" | fold -s -w 70)
 gradientColor='#009688'
 #gradientDimensions='1920x1080'
 font="SpaceMono Nerd Font"
@@ -16,7 +17,7 @@ scrot "$scr"
 convert "$scr" -scale 10% -scale 1000%\
 	-size "${WIDTH}x${HEIGHT}" -gravity south-west \
 	gradient:none-"$gradientColor" -composite -matte \
-	"$dir$icon" -gravity center -composite -matte \
-	-gravity center -pointsize 20 \
-	-fill "#EAE4D1" -family "$font" -style Normal -pointsize 18 -annotate +0+$(echo "${WIDTH} * 0.2 / 1" | bc) "$fortune" "$scr"
+	\( "$dir$icon" -resize 50% \) -gravity center -composite -matte \
+	-gravity center \
+	-fill "#EAE4D1" -family "$font" -style Normal -pointsize 18 -annotate +0+$(echo "${WIDTH} * 0.18 / 1" | bc) "$MESSAGE" "$scr"
 i3lock -ui "$scr"
