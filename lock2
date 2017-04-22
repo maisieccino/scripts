@@ -8,7 +8,7 @@ dir="/home/mbell/scripts"
 # To change the font used add `-font $font`
 # After pointsize in the 'add fortune text section'
 # font="$HOME/.local/share/fonts/Aller_Lt.ttf"
-[ -z "$MESSAGE" ] && MESSAGE=$(fortune ~/git/cs-fortunes/cs-fortunes)
+[ -z "$MESSAGE" ] && MESSAGE=$(fortune $dir/bash_quotes.txt)
 MESSAGE=$(echo "$MESSAGE" | fold -s -w 70)
 gradientColor='#009688'
 #gradientDimensions='1920x1080'
