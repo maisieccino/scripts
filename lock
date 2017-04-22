@@ -12,7 +12,7 @@ fi
 [ -z $HEIGHT ] && HEIGHT=768
 scr='/tmp/screenshot.png'
 icon="lock-icon-white.png"
-dir="/home/mbell/scripts/"
+dir="/home/mbell/scripts"
 # To change the font used add `-font $font`
 # After pointsize in the 'add fortune text section'
 # font="$HOME/.local/share/fonts/Aller_Lt.ttf"
@@ -25,7 +25,7 @@ scrot "$scr"
 convert "$scr" -scale 10% -scale 1000%\
 	-size "${WIDTH}x${HEIGHT}" -gravity south-west \
 	gradient:none-"$gradientColor" -composite -matte \
-	\( "$dir$icon" -resize 50% \) -gravity center -composite -matte \
+	\( "$dir/$icon" -resize 50% \) -gravity center -composite -matte \
 	-gravity center \
 	-fill "#EAE4D1" -family "$font" -style Normal -pointsize 18 -annotate +0+$(echo "${HEIGHT} * 0.3 / 1" | bc) "$MESSAGE" "$scr"
 i3lock -ui "$scr"
