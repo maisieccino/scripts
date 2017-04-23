@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 source ~/.bashrc
+
+# run lock2 if 2 screens.
+if [ $(xrandr -q | grep " connected" | wc -l) == 2 ]
+then
+	/home/mbell/scripts/lock2
+	exit 0
+fi
+
 [ -z $WIDTH ] && WIDTH=1366
 [ -z $HEIGHT ] && HEIGHT=768
 if [ $1 == '-m' ]
@@ -8,7 +16,7 @@ then
 fi
 scr='/tmp/screenshot.png'
 icon="lock-icon-white.png"
-dir="/home/mbell/scripts/"
+dir="/home/mbell/scripts"
 # To change the font used add `-font $font`
 # After pointsize in the 'add fortune text section'
 # font="$HOME/.local/share/fonts/Aller_Lt.ttf"
@@ -21,7 +29,7 @@ scrot "$scr"
 convert "$scr" -scale 10% -scale 1000%\
 	-size "${WIDTH}x${HEIGHT}" -gravity south-west \
 	gradient:none-"$gradientColor" -composite -matte \
-	\( "$dir$icon" -resize 50% \) -gravity center -composite -matte \
+	\( "$dir/$icon" -resize 50% \) -gravity center -composite -matte \
 	-gravity center \
-	-fill "#EAE4D1" -family "$font" -style Normal -pointsize 18 -annotate +0+$(echo "${WIDTH} * 0.18 / 1" | bc) "$MESSAGE" "$scr"
+	-fill "#EAE4D1" -family "$font" -style Normal -pointsize 18 -annotate +0+$(echo "${HEIGHT} * 0.3 / 1" | bc) "$MESSAGE" "$scr"
 i3lock -ui "$scr"
