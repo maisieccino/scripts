@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 source ~/.bashrc
 
+if [ $1 == '-m' ]
+then
+	[ -z "$2" ] || MESSAGE=$2
+fi
+
 # run lock2 if 2 screens.
 if [ $(xrandr -q | grep " connected" | wc -l) == 2 ]
 then
@@ -10,10 +15,6 @@ fi
 
 [ -z $WIDTH ] && WIDTH=1366
 [ -z $HEIGHT ] && HEIGHT=768
-if [ $1 == '-m' ]
-then
-	[ -z "$2" ] || MESSAGE=$2
-fi
 scr='/tmp/screenshot.png'
 icon="lock-icon-white.png"
 dir="/home/mbell/scripts"
