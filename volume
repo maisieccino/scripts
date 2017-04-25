@@ -1,0 +1,95 @@
+# src: https://github.com/PatDan/dotfiles/blob/master/lemonbar/blocks/volume
+#!/bin/sh
+# OLDCOLOR = 77777794A5BC  3E4958
+
+CARD="${1:-0}"
+MIXER="${2:-default}"
+trap "echo Booh!" SIGHUP
+mute=$(amixer -c $CARD -M -D $MIXER get Master | grep Playback | grep -q off && echo 1 || echo 0)
+if [ $mute -eq 1 ]
+then
+	BAR="%{F#67727E}%{T4}%{T-}━━━━━━━━━━━━━━"
+	pc="00"
+	ICON=""
+else
+	# echo "━━━━━━━▊%{F#67727E}━━━━━━━"
+	pc=$(amixer -c $CARD -M -D $MIXER get Master |
+	echo $(sed -n "s/^[^:]*: Playback [0-9]* \[\([0-9]*%\)\] .*/$symbol \1/p" | head -n1))
+	pc=${pc::-1}
+	if [ $pc -eq 100 ]
+	then
+		BAR="%{F#FFFFFF}━━━━━━━━━━━━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 91 ]
+	then
+		BAR="%{F#FFFFFF}━━━━━━━━━━━━━%{F-}%{F#67727E}━%{F-}"
+		ICON=""
+	elif [ $pc -gt 83 ]
+	then
+		BAR="%{F#FFFFFF}━━━━━━━━━━━━%{F-}%{F#67727E}━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 75 ]
+	then
+		BAR="%{F#FFFFFF}━━━━━━━━━━━%{F-}%{F#67727E}━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 67 ]
+	then
+		BAR="%{F#FFFFFF}━━━━━━━━━━%{F-}%{F#67727E}━━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 59 ]
+	then
+		BAR="%{F#FFFFFF}━━━━━━━━━%{F-}%{F#67727E}━━━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 51 ]
+	then
+		BAR="%{F#FFFFFF}━━━━━━━━%{F-}%{F#67727E}━━━━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 43 ]
+	then
+		BAR="%{F#FFFFFF}━━━━━━━%{F-}%{F#67727E}━━━━━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 35 ]
+	then
+		BAR="%{F#FFFFFF}━━━━━━%{F-}%{F#67727E}━━━━━━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 27 ]
+	then
+		BAR="%{F#FFFFFF}━━━━━%{F-}%{F#67727E}━━━━━━━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 19 ]
+	then
+		BAR="%{F#FFFFFF}━━━━%{F-}%{F#67727E}━━━━━━━━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 11 ]
+	then
+		BAR="%{F#FFFFFF}━━━%{F-}%{F#67727E}━━━━━━━━━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 3 ]
+	then
+		BAR="%{F#FFFFFF}━━%{F-}%{F#67727E}━━━━━━━━━━━━%{F-}"
+		ICON=""
+	elif [ $pc -gt 0 ]
+	then
+		BAR="%{F#FFFFFF}━%{F-}%{F#67727E}━━━━━━━━━━━━━%{F-}"
+		ICON=""
+	else
+		BAR="%{F#67727E}━━━━━━━━━━━━━━%{F-}"
+		ICON=""
+	fi
+fi
+
+echo "$ICON $pc $BAR"
+
+
+
+
+
+
+
+
+	
+
+#amixer -c $CARD -M -D $MIXER get Master |
+#echo $(sed -n "s/^[^:]*: Playback [0-9]* \[\([0-9]*%\)\] .*/$symbol \1/p" | head -n1)
+#echo ""
+#echo $(amixer -c $CARD -M -D $MIXER get Master | grep Playback | grep -q off && echo "#F5A3A3" || echo "#EEEEEE")
