@@ -9,7 +9,7 @@ fi
 # run lock2 if 2 screens.
 if [ $(xrandr -q | grep " connected" | wc -l) == 2 ]
 then
-	/home/mbell/scripts/lock2
+	MESSAGE=$MESSAGE /home/mbell/scripts/lock2
 	exit 0
 fi
 
