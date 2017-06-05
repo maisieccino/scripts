@@ -4,7 +4,7 @@ source ~/.bashrc
 [ -z $HEIGHT ] && HEIGHT=768
 scr='/tmp/screenshot.png'
 icon="lock-icon-white.png"
-dir="/home/mbell/scripts"
+dir="$(dirname $0)"
 # To change the font used add `-font $font`
 # After pointsize in the 'add fortune text section'
 # font="$HOME/.local/share/fonts/Aller_Lt.ttf"

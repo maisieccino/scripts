@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 source ~/.bashrc
 
-if [ $1 == '-m' ]
+if [ "$1" == "-m" ]
 then
 	[ -z "$2" ] || MESSAGE=$2
 fi
@@ -9,7 +9,7 @@ fi
 # run lock2 if 2 screens.
 if [ $(xrandr -q | grep " connected" | wc -l) == 2 ]
 then
-	MESSAGE=$MESSAGE /home/mbell/scripts/lock2
+	MESSAGE=$MESSAGE ~/scripts/lock2
 	exit 0
 fi
 
@@ -17,7 +17,7 @@ fi
 [ -z $HEIGHT ] && HEIGHT=768
 scr='/tmp/screenshot.png'
 icon="lock-icon-white.png"
-dir="/home/mbell/scripts"
+dir="$(dirname $0)"
 # To change the font used add `-font $font`
 # After pointsize in the 'add fortune text section'
 # font="$HOME/.local/share/fonts/Aller_Lt.ttf"

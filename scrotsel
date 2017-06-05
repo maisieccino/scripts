@@ -2,7 +2,7 @@
 
 res=$(rofi -p "> " -dmenu < ~/scripts/scrotmenu)
 
-outfile="/home/mbell/Documents/scrots/auto/%Y-%m-%d_%H%M%S_scrot.png"
+outfile="~/Documents/scrots/auto/%Y-%m-%d_%H%M%S_scrot.png"
 
 notify="notify-send 'scrot' 'Screenshot saved'"
 if [ "$res" == "full scrot" ]; then

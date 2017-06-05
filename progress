@@ -1,0 +1,72 @@
+#!/bin/sh
+
+# PROGRESS
+# ========
+# prints out a progress bar.
+# 
+# args:
+# $1 => percentage.
+# $2 => (opt.) true/false, color escape strings?
+# $3 => (opt.) block char.
+# $4 => (opt.) nonblock char.
+[ -z "$1" ] && 1="100"
+
+b="━"
+if [ ! -z "$3" ]; then
+  b="$3"
+fi
+n="━"
+if [ ! -z "$4" ]; then
+  n="$4"
+fi
+
+if [ $1 -eq 100 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b$b$b$b$b$b$b$b$b$b$b%{F-}"
+elif [ $1 -gt 91 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b$b$b$b$b$b$b$b$b$b%{F-}%{F#67727E}$n%{F-}"
+elif [ $1 -gt 83 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b$b$b$b$b$b$b$b$b%{F-}%{F#67727E}$n$n%{F-}"
+elif [ $1 -gt 75 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b$b$b$b$b$b$b$b%{F-}%{F#67727E}$n$n$n%{F-}"
+elif [ $1 -gt 67 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b$b$b$b$b$b$b%{F-}%{F#67727E}$n$n$n$n%{F-}"
+elif [ $1 -gt 59 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b$b$b$b$b$b%{F-}%{F#67727E}$n$n$n$n$n%{F-}"
+elif [ $1 -gt 51 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b$b$b$b$b%{F-}%{F#67727E}$n$n$n$n$n$n%{F-}"
+elif [ $1 -gt 43 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b$b$b$b%{F-}%{F#67727E}$n$n$n$n$n$n$n%{F-}"
+elif [ $1 -gt 35 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b$b$b%{F-}%{F#67727E}$n$n$n$n$n$n$n$n%{F-}"
+elif [ $1 -gt 27 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b$b%{F-}%{F#67727E}$n$n$n$n$n$n$n$n$n%{F-}"
+elif [ $1 -gt 19 ]
+then
+  output="%{F#FFFFFF}$b$b$b$b%{F-}%{F#67727E}$n$n$n$n$n$n$n$n$n$n%{F-}"
+elif [ $1 -gt 11 ]
+then
+  output="%{F#FFFFFF}$b$b$b%{F-}%{F#67727E}$n$n$n$n$n$n$n$n$n$n$n%{F-}"
+elif [ $1 -gt 3 ]
+then
+  output="%{F#FFFFFF}$b$b%{F-}%{F#67727E}$n$n$n$n$n$n$n$n$n$n$n$n%{F-}"
+elif [ $1 -gt 0 ]
+then
+  output="%{F#FFFFFF}$b%{F-}%{F#67727E}$n$n$n$n$n$n$n$n$n$n$n$n$n%{F-}"
+else
+  output="%{F#67727E}$n$n$n$n$n$n$n$n$n$n$n$n$n$n%{F-}"
+fi
+
+if [ "$2" == "false" ]; then
+  output=$(sed -re 's/%\{[A-Za-z0-9#\-]+\}//g' <<< "$output")
+fi
+echo "$output"

@@ -1,0 +1,51 @@
+#!/bin/bash
+set -e
+
+getinfo() {
+  echo $(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "$1" | awk -v patt="$1" -F'[[:space:]][[:space:]]+' '{ print $3 }')
+}
+
+[ -z $WIDTH ] && WIDTH=200
+[ -z $HEIGHT ] && HEIGHT=100
+
+# REQUIRED: gnuplot
+
+TMPFILENAME=/tmp/batgraph.txt
+
+#data=$(awk -F' ' '{OFS=" ";  $1=strftime("%H:%M", $1); print $2 " " $1 }' /var/log/battery-stats) > /tmp/batgraph.txt
+data=$(awk -F' ' '{OFS=" "; print $1 " " $2 }' /var/log/battery-stats)
+echo "$data" > $TMPFILENAME
+latest=$((tail -n1 | cut -d' ' -f2 ) <<< "$data")
+latesttime=$((tail -n1 | cut -d' ' -f1 ) <<< "$data")
+secondtolast=$((tail -n2 | head -n1 | cut -d' ' -f2 ) <<< "$data")
+dayago=$(bc <<< "$(date +%s) - (6 * 60 * 60)")
+
+dischargeline="#ad1457"
+dischargefill="#ef4981"
+chargeline="#8bc34a"
+chargefill="#9ccc65"
+
+line="$chargeline"
+fill="$chargefill"
+if [ "$(getinfo state)" == "discharging" ]; then
+  line="$dischargeline"
+  fill="$dischargefill"
+else
+  line="$chargeline"
+  fill="$chargefill"
+fi
+
+gnuplot -e "set terminal png transparent size $WIDTH,$HEIGHT;\
+  set xrange [$dayago:$latesttime];\
+  set yrange [0:100];\
+  unset border;\
+  unset label;\
+  unset key;\
+  unset tics;\
+  unset title;\
+  set lmargin 0;\
+  set rmargin 0;\
+  set tmargin 0;\
+  set bmargin 0;\
+  set style fill solid border rgb '$line';\
+  plot '/tmp/batgraph.txt' smooth csplines with filledcurves x1 lc rgb '$fill'" > /tmp/batgraph.png

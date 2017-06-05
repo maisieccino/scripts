@@ -1,0 +1,26 @@
+getinfo() {
+  echo $(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "$1" | awk -v patt="$1" -F'[[:space:]][[:space:]]+' '{ print $3 }')
+}
+
+power=$(getinfo "percentage")
+state=$(getinfo "state")
+output=""
+
+if [ "$state" == "charging" ]; then
+  output="$output"
+fi
+
+power=$(grep -Po "(?!%)\d+" <<< "$power")
+if [ "$power" -le 10 ]; then
+  output="%{F#ffef4981}$output!%{F}"
+elif [ "$power" -le "30" ]; then
+  output="$output"
+elif [ "$power" -le "60" ]; then
+  output="$output"
+elif [ "$power" -le "80" ]; then
+  output="$output"
+else
+  output="%{F#ff9ccc65}$output%{F}"
+fi
+
+echo "$output"

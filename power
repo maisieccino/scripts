@@ -21,7 +21,7 @@ if [ $res = "toggle_bar" ]; then
 	if [ -z "$(ps ua | grep 'lemonbar')" ]; then
 		killall bar
 	else
-		/home/mbell/.config/lemon/bar
+		~/.config/lemon/bar
 	fi
 fi
 exit 0
