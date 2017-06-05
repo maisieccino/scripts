@@ -13,8 +13,9 @@ then
 	exit 0
 fi
 
-[ -z $WIDTH ] && WIDTH=1366
-[ -z $HEIGHT ] && HEIGHT=768
+dimensions=$(xrandr | grep -oP "current[ ]\d{3,4}[ ]x[ ]\d{3,4}")
+WIDTH=$(dimensions | awk -F'[  ]' '{ print $2 }')
+HEIGHT=$(dimensions | awk -F'[  ]' '{ print $4 }')
 scr='/tmp/screenshot.png'
 icon="lock-icon-white.png"
 dir="$(dirname $0)"
