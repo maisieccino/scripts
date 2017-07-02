@@ -1,0 +1,13 @@
+#!/bin/sh -e
+
+set +e
+rm /home/$USER/wallpaper
+set -e
+
+abspath=$(cd "$(dirname "$1")" && pwd)/$(basename "$1")
+
+[ ! -f "$abspath" ] && exit 1
+
+ln -s $abspath /home/$USER/wallpaper
+
+i3-msg -t command restart

@@ -1,0 +1,43 @@
+#!/bin/sh
+
+res=$(rofi -p "screen> " -dmenu < ~/scripts/scrmenu)
+
+icon=""
+
+externdisplay=$(xrandr | grep -w connected | cut -d' ' -f1 | grep -v eDP1)
+if [ "$res" = "automatically configure" ]; then
+	if [ ! -z "$externdisplay" ]; then
+		xrandr --output eDP1 --auto --output "$externdisplay" --auto
+	else
+		xrandr --output eDP1 --auto
+	fi
+fi
+if [ "$res" = "extend to external display" ]; then
+	if [ ! -z "$externdisplay" ]; then
+		xrandr --output "$externdisplay" --right-of eDP1
+	else
+		~/scripts/popup/popup.sh "$icon Error: No external display attached!"
+		exit 1
+	fi
+fi
+if [ "$res" = "mirror to external display" ]; then
+	if [ ! -z "$externdisplay" ]; then
+		xrandr --output "$externdisplay" --same-as eDP1
+	else
+		~/scripts/popup/popup.sh "$icon Error: No external display attached!"
+		exit 1
+	fi
+fi
+if [ "$res" = "disable external display" ]; then
+	if [ ! -z "$externdisplay" ]; then
+		xrandr --output "$externdisplay" --off
+	else
+		~/scripts/popup/popup.sh "$icon Error: No external display attached!"
+		exit 1
+	fi
+fi
+if [ "$res" = "start lxrandr" ]; then
+	lxrandr
+fi
+
+exit 0

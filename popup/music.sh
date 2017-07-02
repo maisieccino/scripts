@@ -1,8 +1,10 @@
 #!/bin/sh
 cd $(dirname $0)
 
-left=25
-top=48
+screenxoffset=$(xrandr | grep "$SCREEN" | cut -d' ' -f3 | grep -oP '(?<=\+)\d+(?=\+)')
+screenyoffset=$(xrandr | grep "$SCREEN" | cut -d' ' -f3 | grep -oP '(?<=\+)\d+$')
+left=$(bc <<< "25 + $screenxoffset")
+top=$(bc <<< "48 + $screenyoffset")
 
 destroypopup() {
   pkill -f "n30f.*bg-player\.png"
