@@ -3,8 +3,8 @@
 OFFSET_RE="\+([-0-9]+)\+([-0-9]+)"
 
 # Get the window position
-pos=($(xwininfo -id $(xdotool getactivewindow) | 
-  sed -nr "s/^.*geometry .*$OFFSET_RE.*$/\1 \2/p"))
+pos=($(xdotool getmouselocation | 
+grep -oP '(?<=[xy]:)\d+'))
 # Loop through each screen and compare the offset with the window
 # coordinates.
 while read name width height xoff yoff

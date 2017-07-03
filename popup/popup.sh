@@ -26,7 +26,7 @@ barh="$HEIGHT"
 
 [ -z $GEOMETRY ] && GEOMETRY="${barw}x${barh}+${barx}+${bary}"
 
-[ -z $BG ] && BG='#bb16c98d'
+[ -z $BG ] && BG='#bbdbe6ec'
 [ -z $FG ] && FG='#ff2c3643'
 
 # font used
