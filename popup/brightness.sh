@@ -12,7 +12,7 @@ fi
 
 brightness=$(grep -oP ".*(?=\.)" <<< $(xbacklight -get))
 
-output="$output $brightness $(/home/mbell/scripts/progress $brightness)"
+output="$output $brightness $(fg="2c3643" /home/mbell/scripts/progress $brightness)"
 
 if pgrep -f "lemonbar.*popup_brightness" > /dev/null; then
   echo $(pgrep -f "lemonbar.*popup_brightness")

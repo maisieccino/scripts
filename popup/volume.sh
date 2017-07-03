@@ -23,7 +23,7 @@ else
   fi
 fi
 
-output="$output $volume $(~/scripts/progress $volume)"
+output="$output $volume $(fg="2c3643" ~/scripts/progress $volume)"
 
 if pgrep -f "lemonbar.*popup_volume" > /dev/null; then
   echo $(pgrep -f "lemonbar.*popup_volume")

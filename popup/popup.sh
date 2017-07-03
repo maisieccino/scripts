@@ -13,8 +13,8 @@ else
   screenyoffset=$(xrandr | grep "$SCREEN" | cut -d' ' -f3 | grep -oP '(?<=\+)\d+$')
 fi
 
-[ -z "$XOFFSET" ] && XOFFSET=25
-[ -z "$YOFFSET" ] && YOFFSET=25
+[ -z "$XOFFSET" ] && XOFFSET=10
+[ -z "$YOFFSET" ] && YOFFSET=35
 
 [ -z "$WIDTH" ] && WIDTH=200
 [ -z "$HEIGHT" ] && HEIGHT=30
@@ -26,8 +26,8 @@ barh="$HEIGHT"
 
 [ -z $GEOMETRY ] && GEOMETRY="${barw}x${barh}+${barx}+${bary}"
 
-[ -z $BG ] && BG='#bb00245e'
-[ -z $FG ] && FG='#ffeceff1'
+[ -z $BG ] && BG='#bb16c98d'
+[ -z $FG ] && FG='#ff2c3643'
 
 # font used
 bar_font='-*-gohup-medium-*-*-*-11-*-*-*-*-*-iso10646-*'

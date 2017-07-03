@@ -12,7 +12,7 @@ fi
 
 power=$(grep -Po "(?!%)\d+" <<< "$power")
 if [ "$power" -le 10 ]; then
-  output="%{F#ffef4981}$output!%{F}"
+  output="%{F#fffa5e5b}$output!%{F}"
 elif [ "$power" -le "30" ]; then
   output="$output"
 elif [ "$power" -le "60" ]; then
@@ -20,7 +20,7 @@ elif [ "$power" -le "60" ]; then
 elif [ "$power" -le "80" ]; then
   output="$output"
 else
-  output="%{F#ff9ccc65}$output%{F}"
+  output="%{F#ff16c98d}$output%{F}"
 fi
 
 echo "$output"

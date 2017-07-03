@@ -9,7 +9,7 @@ if [ -z "$url" ]; then
   exit 1
 fi
 
-wget -q -O "${TMPLOCATION}.jpg" "$url"
+wget -o /dev/null -q -O "${TMPLOCATION}.jpg" "$url"
 convert "${TMPLOCATION}.jpg" "${TMPLOCATION}.png"
 if [ ! -z "$WIDTH" ]; then
   if [ ! -z "$HEIGHT" ]; then

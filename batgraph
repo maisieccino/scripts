@@ -20,10 +20,10 @@ latesttime=$((tail -n1 | cut -d' ' -f1 ) <<< "$data")
 secondtolast=$((tail -n2 | head -n1 | cut -d' ' -f2 ) <<< "$data")
 dayago=$(bc <<< "$(date +%s) - (6 * 60 * 60)")
 
-dischargeline="#ad1457"
-dischargefill="#ef4981"
-chargeline="#8bc34a"
-chargefill="#9ccc65"
+dischargeline="#fa5e5b"
+dischargefill="#e57977"
+chargeline="#16c98d"
+chargefill="#16c98d"
 
 line="$chargeline"
 fill="$chargefill"
