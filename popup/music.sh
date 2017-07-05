@@ -1,8 +1,14 @@
 #!/bin/sh
 cd $(dirname $0)
 
-screenxoffset=$(xrandr | grep "$SCREEN" | cut -d' ' -f3 | grep -oP '(?<=\+)\d+(?=\+)')
-screenyoffset=$(xrandr | grep "$SCREEN" | cut -d' ' -f3 | grep -oP '(?<=\+)\d+$')
+[ -z "$SCREEN" ] && SCREEN=$($HOME/scripts/activescreen.sh)
+if [ ! -z "$(xrandr | grep "$SCREEN" | grep "primary")" ]; then
+  screenxoffset=$(xrandr | grep "$SCREEN" | cut -d' ' -f4 | grep -oP '(?<=\+)\d+(?=\+)')
+  screenyoffset=$(xrandr | grep "$SCREEN" | cut -d' ' -f4 | grep -oP '(?<=\+)\d+$')
+else
+  screenxoffset=$(xrandr | grep "$SCREEN" | cut -d' ' -f3 | grep -oP '(?<=\+)\d+(?=\+)')
+  screenyoffset=$(xrandr | grep "$SCREEN" | cut -d' ' -f3 | grep -oP '(?<=\+)\d+$')
+fi
 left=$(bc <<< "25 + $screenxoffset")
 top=$(bc <<< "48 + $screenyoffset")
 

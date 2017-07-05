@@ -22,8 +22,8 @@ if [ -z $(pgrep -f "n30f.*batgraph\.png") ]; then
   n30f -x "$left" -y "$top" ~/scripts/popup/bg.png&
   sleep 0.1
   n30f -x $(bc <<< "$left + 11") -y $(bc <<< "$top + 33") /tmp/batgraph.png&
-  DURATION="unlimited" BG="#00000000" FG="#FFFFFFFF" OVERLAY="true" GEOMETRY="168x10+$(bc <<< "$left + 2")+$(bc <<< "$top + 6")" ./popup.sh "%{c}Charge level is $power."&
-  DURATION="unlimited" BG="#00000000" FG="#FFFFFFFF" OVERLAY="true" GEOMETRY="168x10+$(bc <<< "$left + 2")+$(bc <<< "$top + 105")" ./popup.sh "%{c} $timetext"&
+  DURATION="unlimited" BG="#00000000" FG="#FF2c3643" OVERLAY="true" GEOMETRY="168x10+$(bc <<< "$left + 2")+$(bc <<< "$top + 12")" ./popup.sh "%{c}Charge level is $power."&
+  DURATION="unlimited" BG="#00000000" FG="#FF2c3643" OVERLAY="true" GEOMETRY="168x10+$(bc <<< "$left + 2")+$(bc <<< "$top + 105")" ./popup.sh "%{c} $timetext"&
   sleep 5
   pkill -f "n30f.*bg\.png"
   pkill -f "n30f.*batgraph\.png"
