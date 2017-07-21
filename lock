@@ -3,35 +3,35 @@ source ~/.bashrc
 
 if [ "$1" == "-m" ]
 then
-	[ -z "$2" ] || MESSAGE=$2
+	[ -z "$2" ] || message=$2
 fi
 
 # run lock2 if 2 screens.
 if [ $(xrandr -q | grep " connected" | wc -l) == 2 ]
 then
-	MESSAGE=$MESSAGE ~/scripts/lock2
+	message=$message ~/scripts/lock2
 	exit 0
 fi
 
 dimensions=$(xrandr | grep -oP "current[ ]\d{3,4}[ ]x[ ]\d{3,4}")
-WIDTH=$(dimensions | awk -F'[  ]' '{ print $2 }')
-HEIGHT=$(dimensions | awk -F'[  ]' '{ print $4 }')
+WIDTH=$(echo $dimensions | awk -F'[  ]' '{ print $2 }')
+HEIGHT=$(echo $dimensions | awk -F'[  ]' '{ print $4 }')
 scr='/tmp/screenshot.png'
 icon="lock-icon-white.png"
 dir="$(dirname $0)"
 # To change the font used add `-font $font`
 # After pointsize in the 'add fortune text section'
 # font="$HOME/.local/share/fonts/Aller_Lt.ttf"
-[ -z "$MESSAGE" ] && MESSAGE=$(fortune ~/git/cs-fortunes/cs-fortunes)
-MESSAGE=$(echo "$MESSAGE" | fold -s -w 70)
-gradientColor='#009688'
+[ -z "$message" ] && message=$(fortune ~/git/cs-fortunes/cs-fortunes)
+message=$(echo "$message" | fold -s -w 70)
+[ -z "$gradientcolor" ] && gradientcolor='#79b0de'
 #gradientDimensions='1920x1080'
 font="SpaceMono Nerd Font"
 scrot "$scr"
 convert "$scr" -scale 10% -scale 1000%\
 	-size "${WIDTH}x${HEIGHT}" -gravity south-west \
-	gradient:none-"$gradientColor" -composite -matte \
+	gradient:none-"$gradientcolor" -composite -matte \
 	\( "$dir/$icon" -resize 50% \) -gravity center -composite -matte \
 	-gravity center \
-	-fill "#EAE4D1" -family "$font" -style Normal -pointsize 18 -annotate +0+$(echo "${HEIGHT} * 0.3 / 1" | bc) "$MESSAGE" "$scr"
+	-fill "#EAE4D1" -family "$font" -style Normal -pointsize 18 -annotate +0+$(echo "${HEIGHT} * 0.3 / 1" | bc) "$message" "$scr"
 i3lock -ui "$scr"
