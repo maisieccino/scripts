@@ -2,24 +2,20 @@
 
 res=$(rofi -p "> " -dmenu < ~/scripts/scrotmenu)
 
-outfile="~/Documents/scrots/auto/%Y-%m-%d_%H%M%S_scrot.png"
+outfile="$HOME/Documents/scrots/auto/%Y-%m-%d_%H%M%S_scrot.png"
 
-notify="notify-send 'scrot' 'Screenshot saved'"
 if [ "$res" == "full scrot" ]; then
-    cmd="scrot $outfile"
+    scrot "$outfile" -t 10 -e '~/scripts/scrot-notify.sh "$n"'
 fi
 if [ "$res" == "rectangular selection scrot" ]; then
-    cmd="scrot -s $outfile"
+    scrot -s "$outfile" -t 10 -e '~/scripts/scrot-notify.sh "$n"'
 fi
 if [ "$res" == "scrot current window" ]; then
-    cmd="scrot -b -u $outfile"
+    scrot -b -u "$outfile" -t 10 -e '~/scripts/scrot-notify.sh "$n"'
 fi
 if [ "$res" == "scrot (+5 seconds delay)" ]; then
-    cmd="scrot -d 5 $outfile"
+    scrot -d 5 "$outfile" -t 10 -e '~/scripts/scrot-notify.sh "$n"'
 fi
 if [ "$res" == "" ]; then
     exit
 fi
-sleep 1
-eval $cmd && eval $notify
-exit 0
