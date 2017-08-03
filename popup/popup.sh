@@ -30,7 +30,7 @@ barh="$HEIGHT"
 [ -z $FG ] && FG='#ff2c3643'
 
 # font used
-bar_font='-*-gohup-medium-*-*-*-11-*-*-*-*-*-iso10646-*'
+bar_font='-*-gohufont-medium-*-*-*-11-*-*-*-*-*-iso10646-*'
 icon_font='-wuncon-siji-medium-r-normal--11-100-*-*-*-*-iso10646-*'
 
 

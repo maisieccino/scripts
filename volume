@@ -91,7 +91,7 @@ else
 	fi
 fi
 
-echo "$ICON $pc $BAR"
+echo "$ICON $pc"
 
 
 
