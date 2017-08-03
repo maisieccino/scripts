@@ -4,6 +4,8 @@ res=$(rofi -p "> " -dmenu < ~/scripts/scrotmenu)
 
 outfile="$HOME/Documents/scrots/auto/%Y-%m-%d_%H%M%S_scrot.png"
 
+sleep 0.5
+
 if [ "$res" == "full scrot" ]; then
     scrot "$outfile" -t 10 -e '~/scripts/scrot-notify.sh "$n"'
 fi
