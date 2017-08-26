@@ -27,6 +27,7 @@ message=$(echo "$message" | fold -s -w 70)
 [ -z "$gradientcolor" ] && gradientcolor='#6699cc'
 #gradientDimensions='1920x1080'
 font="Circular Std Book"
+sleep 0.3
 scrot "$scr"
 convert "$scr" -scale 10% -scale 1000%\
 	-size "${WIDTH}x${HEIGHT}" -gravity south-west \

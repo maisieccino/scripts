@@ -13,8 +13,8 @@ else
   screenyoffset=$(xrandr | grep "$SCREEN" | cut -d' ' -f3 | grep -oP '(?<=\+)\d+$')
 fi
 
-[ -z "$XOFFSET" ] && XOFFSET=10
-[ -z "$YOFFSET" ] && YOFFSET=35
+[ -z "$XOFFSET" ] && XOFFSET=20
+[ -z "$YOFFSET" ] && YOFFSET=20
 
 [ -z "$WIDTH" ] && WIDTH=200
 [ -z "$HEIGHT" ] && HEIGHT=30

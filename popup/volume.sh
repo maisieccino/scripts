@@ -26,7 +26,6 @@ fi
 output="$output $volume $(fg="2c3643" bg="606c7c" ~/scripts/progress $volume)"
 
 if pgrep -f "lemonbar.*popup_volume" > /dev/null; then
-  echo $(pgrep -f "lemonbar.*popup_volume")
   pkill -f "lemonbar.*popup_volume"
   NAME="popup_volume" DURATION=2 ~/scripts/popup/popup.sh "$output"
 else
